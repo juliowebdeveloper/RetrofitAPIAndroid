@@ -19,6 +19,15 @@ public interface GitHubService {
     Call<List<GitHubRepo>> reposForUser(@Path("user") String username);
 
     /*
+    Here, the {user} indicates to Retrofit that the value is dynamic and will be set when the request
+is being made. If you include a path parameter in the URL, you need to add a @Path() function
+parameter, where the @Path value matches the placeholder in the URL (in this case it’d be
+@Path("user")). You can use multiple placeholders, if necessary. Just make sure you always have
+the exact amount of matching parameters. You can even use optional path parameters.
+     */
+
+
+    /*
     The @GET() annotation explicitly defines that a GET request will be executed once the method gets
 called. Further, the @GET() definition takes a string parameter representing the endpoint url of your
 API. Additionally, the endpoint url can be defined with placeholders which get substituted by path
