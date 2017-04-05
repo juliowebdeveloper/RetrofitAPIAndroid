@@ -44,5 +44,23 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+        UserService userService = ServiceGenerator.createService(UserService.class);
+        userService.profilePicture("https://s3.amazon.com/my/profile-picture/path");
+
+        /*Because you set a completely different host including a scheme (https://s3.amazon.com vs.
+https://your.api.url), the HttpUrl from OkHttp will resolve it to the dynamic one.
+Another example: this time we point the dynamic url for our profile picture to the same server as
+we’ve already defined as the base url.*/
+        userService.profilePicture("my/profile-picture/path");
+
+            /*This time, the final request url gets resolved to a concatenation of the base url and our dynamically
+defined endpoint url. HttpUrl will recognizes that we didn’t specify a scheme and host and therefore
+appends the endpoint url to the base url.*/
+
+
+
+
+
     }
 }

@@ -16,7 +16,7 @@ public interface GitHubService {
 
 
     @GET("users/{user}/repos")
-    Call<List<GitHubRepo>> reposForUser(@Path("user") String username);
+    Call<List<GitHubRepo>> reposForUser(@Path("user") String username); //@Path para caminhos @Query para parametros
 
     /*
     Here, the {user} indicates to Retrofit that the value is dynamic and will be set when the request
