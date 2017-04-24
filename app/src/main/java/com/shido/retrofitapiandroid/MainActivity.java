@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.shido.retrofitapiandroid.interfaces.GitHubService;
+import com.shido.retrofitapiandroid.interfaces.UserService;
 
 import java.util.List;
 

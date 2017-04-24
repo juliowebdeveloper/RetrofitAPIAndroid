@@ -1,6 +1,12 @@
 package com.shido.retrofitapiandroid;
 
+import java.io.IOException;
+
+import okhttp3.HttpUrl;
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -37,6 +43,27 @@ way: */
             builder.client(httpClient.build());
             retrofit = builder.build();
         }
+
+
+        //Adicionar um queryParameter num interceptor garante que todas em todas as requisições será passado
+        //esse parametro
+        httpClient.addInterceptor(new Interceptor() { //Adicionando um novo interceptor com um query parameter "apikey"
+            @Override
+            public Response intercept(Chain chain) throws IOException { //pegando a Cadeia de interceptors e adicionando uma nova
+                Request original = chain.request();
+                HttpUrl originalHttpUrl = original.url();
+
+                HttpUrl url = originalHttpUrl.newBuilder().addQueryParameter("apikey", "api_key").build(); //Utilizando um novo builder
+
+                Request.Builder requestBuilder = original.newBuilder().url(url).method(original.method(), original.body());
+
+                Request request = requestBuilder.build();
+                return chain.proceed(request); //Retornando o novo request com a nova url
+            }
+        });
+
+
+
         return retrofit.create(serviceClass);
     }
 
@@ -64,6 +91,9 @@ because we use the OkHttpClient throughout this class, we need to make all field
 static.
 
      */
+
+
+
 
 
 }
